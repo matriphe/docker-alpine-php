@@ -46,6 +46,8 @@ RUN	apk update && \
 		php-iconv \
 		php-pdo_dblib \
 		php-curl \
+		php-ctype \
+		php-phar \
 		php-cli && \
 	sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php/php.ini && \
 	sed -i "s|memory_limit =.*|memory_limit = ${PHP_MEMORY_LIMIT}|" /etc/php/php.ini && \

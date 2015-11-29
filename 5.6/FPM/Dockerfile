@@ -46,6 +46,7 @@ RUN	apk update && \
 		php-iconv \
 		php-pdo_dblib \
 		php-curl \
+		php-ctype \
 		php-fpm && \
 	sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/php-fpm.conf && \
 	sed -i -e "s/listen\s*=\s*127.0.0.1:9000/listen = 9000/g" /etc/php/php-fpm.conf && \
