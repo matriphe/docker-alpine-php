@@ -82,3 +82,11 @@ docker stop phpfpm
 ```Shell
 docker start phpfpm
 ```
+
+## PHP CLI
+
+To ease the job, make alias for PHP-CLI. Add this line to `~/.bashrc` so we can call it as regular `php` command.
+
+```Shell
+alias php='docker run --rm --name=php-cli -v $(pwd):/www matriphe/alpine-php:cli php'
+```
