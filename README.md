@@ -10,8 +10,15 @@ Here are the supported tags and respective Dockerfile links.
 
  * `cli`, `cli-5.6` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/5.6/CLI/Dockerfile)
  * `fpm`, `fpm-5.6` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/5.6/FPM/Dockerfile)
+ * `fpm7`, `fpm-7` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/7.0/FPM/Dockerfile)
  
 The `cli` tag show that the PHP is used for command line, such as simple static HTML site. And the `fpm` is disigned to be used with PHP-FPM. It is fit with [Alpine-Nginx](https://hub.docker.com/r/matriphe/alpine-nginx/) docker image.
+
+### PHP 7.0
+
+PHP 7.0 is still using [**edge/testing** repository for PHP7 packages](https://pkgs.alpinelinux.org/packages?name=php7*&branch=&repo=testing&arch=&maintainer=).
+
+PHP 7.0 CLI is not available yet, since there's no `php7-cli` package in the repository.
 
 ## Getting The Image
 
@@ -34,7 +41,7 @@ Alternatively you can clone this repository and build the image using the `docke
 This image use `Asia/Jakarta` timezone by default. You can change the timezone by change the `TIMEZONE` environment on `Dockerfile` and then build.
 
 ```Shell
-docker -t repository/imagename:tag Dockerfile
+docker build -t repository/imagename:tag .
 ```
 
 ## Configuration
