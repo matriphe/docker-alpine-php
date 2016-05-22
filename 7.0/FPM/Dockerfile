@@ -67,4 +67,4 @@ VOLUME ["/www"]
 EXPOSE 9000
 
 # Entry point
-ENTRYPOINT ["/usr/bin/php7-fpm"]
+ENTRYPOINT ["/usr/sbin/php-fpm7"]
