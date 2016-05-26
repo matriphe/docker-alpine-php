@@ -4,7 +4,7 @@ This PHP FPM and PHP CLI docker image based on [Alpine](https://hub.docker.com/_
 
 ## Tags
 
-Versions and are based on PHP versions.
+Versions and tags are based on PHP versions.
 
 Here are the supported tags and respective Dockerfile links.
 
@@ -12,23 +12,21 @@ Here are the supported tags and respective Dockerfile links.
  * `fpm`, `fpm-5.6` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/5.6/FPM/Dockerfile)
  * `fpm7`, `fpm-7` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/7.0/FPM/Dockerfile)
  
-The `cli` tag show that the PHP is used for command line, such as simple static HTML site. And the `fpm` is disigned to be used with PHP-FPM. It is fit with [Alpine-Nginx](https://hub.docker.com/r/matriphe/alpine-nginx/) docker image.
+The `cli` tag show that the PHP is used for command line and the `fpm` is designed to be used with PHP-FPM. It is fit with [Alpine-Nginx](https://hub.docker.com/r/matriphe/alpine-nginx/) docker image.
 
 ### PHP 7.0
 
-PHP 7.0 is still using [**edge/testing** repository for PHP7 packages](https://pkgs.alpinelinux.org/packages?name=php7*&branch=&repo=testing&arch=&maintainer=).
-
-PHP 7.0 CLI is not available yet, since there's no `php7-cli` package in the repository.
+PHP 7.0 is still using [**edge/testing** repository for PHP7 packages](https://pkgs.alpinelinux.org/packages?name=php7*&branch=&repo=testing&arch=&maintainer=). PHP 7.0 CLI is not available yet, since there's no `php7-cli` package in the repository.
 
 ## Getting The Image
 
-This image is published in the Docker Hub. Simply run this command below to get it to your machine.
+This image is published in the [Docker Hub](https://hub.docker.com/r/matriphe/alpine-php/). Simply run this command below to get it to your machine.
 
 ```Shell
 docker pull matriphe/alpine-php:fpm
 ```
 
-or 
+Or if you want to use `cli` image. 
 
 ```Shell
 docker pull matriphe/alpine-php:cli
@@ -48,9 +46,7 @@ docker build -t repository/imagename:tag .
 
 The site data, config, and log data is configured to be located in a Docker volume so that it is persistent and can be shared by other containers or a backup container).
 
-There is volume defined in this image `/www` that is shared with Nginx container. Please make sure both containers can access the directory.
-
-You can store the sites data to this directory structure:
+There is volume defined in this image `/www` that is shared with Nginx container. Please make sure both containers can access the directory. You can store the sites data to this directory.
 
 ### PHP Configuration
 
@@ -63,6 +59,8 @@ ENV MAX_UPLOAD 50M
 ENV PHP_MAX_FILE_UPLOAD 200
 ENV PHP_MAX_POST 100M
 ```
+
+Change it in `Dockerfile` and you can rebuild your image.
 
 ## Run The Container
 
