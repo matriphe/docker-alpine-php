@@ -1,15 +1,15 @@
 # Use Alpine Linux
 FROM alpine:latest
 
-# Declare maintainer
+# Maintainer
 MAINTAINER Muhammad Zamroni <halo@matriphe.com>
 
-# Timezone
-ENV TIMEZONE Asia/Jakarta
-ENV PHP_MEMORY_LIMIT 512M
-ENV MAX_UPLOAD 50M
+# Environments
+ENV TIMEZONE            Asia/Jakarta
+ENV PHP_MEMORY_LIMIT    512M
+ENV MAX_UPLOAD          50M
 ENV PHP_MAX_FILE_UPLOAD 200
-ENV PHP_MAX_POST 100M
+ENV PHP_MAX_POST        100M
 
 # Let's roll
 RUN	apk update && \
@@ -49,12 +49,16 @@ RUN	apk update && \
 		php-ctype \
 		php-phar \
 		php-cli && \
-	sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php/php.ini && \
-	sed -i "s|memory_limit =.*|memory_limit = ${PHP_MEMORY_LIMIT}|" /etc/php/php.ini && \
-	sed -i "s|upload_max_filesize =.*|upload_max_filesize = ${MAX_UPLOAD}|" /etc/php/php.ini && \
-	sed -i "s|max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|" /etc/php/php.ini && \
-	sed -i "s|post_max_size =.*|post_max_size = ${PHP_MAX_POST}|" /etc/php/php.ini && \
-	sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/php.ini && \
+    
+    # Set environments
+	sed -i "s|;*date.timezone =.*|date.timezone = ${TIMEZONE}|i" /etc/php/php.ini && \
+	sed -i "s|;*memory_limit =.*|memory_limit = ${PHP_MEMORY_LIMIT}|i" /etc/php/php.ini && \
+    sed -i "s|;*upload_max_filesize =.*|upload_max_filesize = ${MAX_UPLOAD}|i" /etc/php/php.ini && \
+    sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /etc/php/php.ini && \
+    sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /etc/php/php.ini && \
+    sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0|i" /etc/php/php.ini && \
+	
+	# Cleaning up
 	mkdir /www && \
 	apk del tzdata && \
 	rm -rf /var/cache/apk/*

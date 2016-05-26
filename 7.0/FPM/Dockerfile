@@ -1,15 +1,15 @@
 # Use Alpine Linux
 FROM alpine:edge
 
-# Declare maintainer
+# Maintainer
 MAINTAINER Muhammad Zamroni <halo@matriphe.com>
 
-# Timezone
-ENV TIMEZONE Asia/Jakarta
-ENV PHP_MEMORY_LIMIT 512M
-ENV MAX_UPLOAD 50M
+# Environments
+ENV TIMEZONE            Asia/Jakarta
+ENV PHP_MEMORY_LIMIT    512M
+ENV MAX_UPLOAD          50M
 ENV PHP_MAX_FILE_UPLOAD 200
-ENV PHP_MAX_POST 100M
+ENV PHP_MAX_POST        100M
 
 # Let's roll
 RUN	echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
@@ -45,14 +45,19 @@ RUN	echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 		php7-curl \
 		php7-ctype \
 		php7-fpm && \
-	sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php7/php-fpm.conf && \
-	sed -i -e "s/listen\s*=\s*127.0.0.1:9000/listen = 9000/g" /etc/php7/php-fpm.conf && \
-	sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini && \
-	sed -i "s|memory_limit =.*|memory_limit = ${PHP_MEMORY_LIMIT}|" /etc/php7/php.ini && \
-    sed -i "s|upload_max_filesize =.*|upload_max_filesize = ${MAX_UPLOAD}|" /etc/php7/php.ini && \
-    sed -i "s|max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|" /etc/php7/php.ini && \
-    sed -i "s|post_max_size =.*|post_max_size = ${PHP_MAX_POST}|" /etc/php7/php.ini && \
-    sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php7/php.ini && \
+    
+    # Set environments
+	sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /etc/php7/php-fpm.conf && \
+	sed -i "s|;*listen\s*=\s*127.0.0.1:9000|listen = 9000|g" /etc/php7/php-fpm.conf && \
+	sed -i "s|;*listen\s*=\s*/||g" /etc/php7/php-fpm.conf && \
+	sed -i "s|;*date.timezone =.*|date.timezone = ${TIMEZONE}|i" /etc/php7/php.ini && \
+	sed -i "s|;*memory_limit =.*|memory_limit = ${PHP_MEMORY_LIMIT}|i" /etc/php7/php.ini && \
+    sed -i "s|;*upload_max_filesize =.*|upload_max_filesize = ${MAX_UPLOAD}|i" /etc/php7/php.ini && \
+    sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /etc/php7/php.ini && \
+    sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /etc/php7/php.ini && \
+    sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0|i" /etc/php7/php.ini && \
+    
+    # Cleaning up
 	mkdir /www && \
 	apk del tzdata && \
 	rm -rf /var/cache/apk/*
@@ -67,4 +72,4 @@ VOLUME ["/www"]
 EXPOSE 9000
 
 # Entry point
-ENTRYPOINT ["/usr/bin/php7-fpm"]
+ENTRYPOINT ["/usr/sbin/php-fpm7"]
