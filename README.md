@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/matriphe/docker-alpine-php.svg?branch=master)](https://travis-ci.org/matriphe/docker-alpine-php)
-
 # Alpine PHP
+
+[![Build Status](https://travis-ci.org/matriphe/docker-alpine-php.svg?branch=master)](https://travis-ci.org/matriphe/docker-alpine-php)
 
 This PHP FPM and PHP CLI docker image based on [Alpine](https://hub.docker.com/_/alpine/). Alpine is based on [Alpine Linux](http://www.alpinelinux.org), lightweight Linux distribution based on [BusyBox](https://hub.docker.com/_/busybox/). The size of the image is very small, less than 50 MB!
 
