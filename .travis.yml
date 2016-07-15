@@ -1,0 +1,12 @@
+services:
+  - docker
+  
+install:
+  - docker build -t matriphe/php-fpm56:test 5.6/FPM/
+  - docker build -t matriphe/php-fpm7:test 7.0/CLI/
+  - docker run -p 9001:9000 --name phpfpm56 -d matriphe/php-fpm56:test
+  - docker run -p 9002:9000 --name phpfpm7 -d matriphe/php-fpm7:test
+
+script:
+  - docker ps | grep -q phpfpm56
+  - docker ps | grep -q phpfpm7
