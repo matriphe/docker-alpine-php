@@ -11,6 +11,9 @@ ENV MAX_UPLOAD          50M
 ENV PHP_MAX_FILE_UPLOAD 200
 ENV PHP_MAX_POST        100M
 
+# Add composer
+ADD https://getcomposer.org/installer composer-setup.php
+
 # Let's roll
 RUN	echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk update && \
@@ -44,6 +47,10 @@ RUN	echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 		php7-pdo_dblib \
 		php7-curl \
 		php7-ctype \
+        php7-opcache \
+        php7-xdebug \
+        php7-phar \
+		php7 \
 		php7-fpm && \
     
     # Set environments
@@ -56,11 +63,21 @@ RUN	echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /etc/php7/php.ini && \
     sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /etc/php7/php.ini && \
     sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0|i" /etc/php7/php.ini && \
-    
+
+    # Symlink php7 to php
+    ln -s /usr/bin/php7 /usr/bin/php && \
+
+    # Setup composer
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet && \
+    rm composer-setup.php && \
+
     # Cleaning up
 	mkdir /www && \
 	apk del tzdata && \
 	rm -rf /var/cache/apk/*
+
+# Copy additional PHP configuration files with better values
+COPY conf.d/* /etc/php7/conf.d/
 
 # Set Workdir
 WORKDIR /www
@@ -69,7 +86,7 @@ WORKDIR /www
 VOLUME ["/www"]
 
 # Expose ports
-EXPOSE 9000
+EXPOSE 9000 9009
 
 # Entry point
 ENTRYPOINT ["/usr/sbin/php-fpm7"]
