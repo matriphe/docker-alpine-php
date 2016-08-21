@@ -1,5 +1,5 @@
 # Use Alpine Linux
-FROM alpine:edge
+FROM container4armhf/armhf-alpine:latest-stable
 
 # Maintainer
 MAINTAINER Muhammad Zamroni <halo@matriphe.com>
