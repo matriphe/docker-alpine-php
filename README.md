@@ -10,11 +10,11 @@ Versions and tags are based on PHP versions.
 
 Here are the supported tags and respective Dockerfile links.
 
- * `cli`, `cli-5.6` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/5.6/CLI/Dockerfile)
- * `fpm`, `fpm-5.6` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/5.6/FPM/Dockerfile)
- * `fpm7`, `fpm-7` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/7.0/FPM/Dockerfile)
+ * `php7` [(Dockerfile)](https://github.com/matriphe/docker-alpine-php/blob/master/7.0/Dockerfile)
  
-The `cli` tag show that the PHP is used for command line and the `fpm` is designed to be used with PHP-FPM. It is fit with [Alpine-Nginx](https://hub.docker.com/r/matriphe/alpine-nginx/) docker image.
+This image includes PHP essentials extensions, database drivers, Xdebug, and Opcache. This image is suitable for Symfony2 or Laravel based project. This tag also includes PHP CLI and `composer`.
+
+ It is fit with [Alpine-Nginx](https://hub.docker.com/r/matriphe/alpine-nginx/) docker image.
 
 ### PHP 7.0
 
